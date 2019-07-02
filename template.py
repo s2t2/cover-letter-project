@@ -7,19 +7,25 @@ from selenium import webdriver
 
 ## Data collecting without API
 
+print("Welcome to Cover Letter Premium!")
+print("------------------------------")
+job_url = "https://www.linkedin.com/jobs/view/1347102437/" # input("please input your URL: ")
+
+
 # download chromedriver from http://chromedriver.chromium.org/downloads
 # and replace the path with where you download it
-# driver = webdriver.Chrome('E:\Python scripts\chromedriver')
-# print("Welcome to Cover Letter Premium!")
-print("------------------------------")
-job_url = input("please input your URL: ")
-# breakpoint()
+driver = webdriver.Chrome("/usr/local/bin/chromedriver")
 driver.get(job_url)
-#driver.get('https://www.linkedin.com/jobs/view/1304372932/')
+print(driver.title)
+
+
+
+
 
 job_info =  driver.find_element_by_tag_name('title').get_attribute('text')
-print(job_info)
-breakpoint()
+
+print(job_info) #> 'Accenture hiring Software Developer Engineer - Associate Manager - Denver, CO in Denver, CO, US | LinkedIn'
+
 info_list = job_info.split('hiring')
 title = info_list[1]
 company = info_list[0]
@@ -32,6 +38,19 @@ job_dict = {
 }
 
 print(job_dict)
+
+
+driver.quit()
+
+
+
+
+
+
+
+
+
+#breakpoint()
 
 
 ## user profile
@@ -48,12 +67,12 @@ today = datetime.date.today()
 F_today = today.strftime("%B, %d, %Y")
 # print(F_today)
 
-# company_name =  "Phoenix Marketing International" 
+# company_name =  "Phoenix Marketing International"
 company_name =  job_dict["company"]
-company_address_1 =  "1430 Broadway, 19th Floor" 
+company_address_1 =  "1430 Broadway, 19th Floor"
 company_address_2 = "New York, NY 10018"
 
-start = f""" 
+start = f"""
 {F_today}
 
 {company_name}
@@ -63,12 +82,12 @@ start = f"""
 print(start)
 
 ## BOBY CONTENTS
-# job_title = "Market research Intern" 
+# job_title = "Market research Intern"
 job_title =  job_dict["title"]
 
-skill_1 = "analytical" # = filtered_1 
-skill_2 = "market reserch" # = filtered_2 
-skill_3 = "communication" # = filtered_3 
+skill_1 = "analytical" # = filtered_1
+skill_2 = "market reserch" # = filtered_2
+skill_3 = "communication" # = filtered_3
 intro_p = f"I want to express my immense interest in the opportunity of the {job_title} at {company_name}. I am a {user_status.lower()} in the {user_major} at NYU graduating in 2020. For this {job_title} position, I am excited to apply my market research and consumer behavior knowledge to real-world situations and learn valuable experience from industry professionals. I believe that my qualifications and educational pursuits are a great fit with the kind of candidate you company is looking for. Given my passion and knowledge, I would be able to contribute to this role immediately."
 analytical_research = "I know this position requires strong analytical and research ability, and my previous research experiences strongly supported my competence. I worked as a research assistant in two psychology labs at Willamette University for three years and actively engaged in both experimental design and data analysis processes. The complicated experimental design procedure improved my skills of thorough design and organization and attention to details. The data analysis processes, including data coding, cleaning, analysis, visualization, and interpretation, gave me great opportunities to apply my statistical knowledge and strengthen my analytical skills. From my current master program, I have learned market research methods and design thinking, using interviews, focus groups, and other qualitative methods to achieve human-centered designs. I am trained to apply psychological theories to the marketing industry and be familiar with qualitative research and analysis as well."
 
@@ -96,7 +115,7 @@ if "analytical" or "research" or "quantitative" or "market research" in job_desc
     print("")
 
 if "communication" or "verbal" or "people" in job_description:
-    skill_body = communication 
+    skill_body = communication
 # else:
 #     return skill_body
 
@@ -118,24 +137,24 @@ else:
 
 
 # if "market" or "marketing" in job_requirments
-#     
-#     
-print(skill_body)
+#
+#
+print("SKILL BODY", skill_body)
 
 print("")
-print(ending_body)
+print("ENDING BODY", ending_body)
 ## ENDING
 end = f"""
 Sincerely,
 {user_name}
 """
-print(end)
+print("FINAL", end)
 
 
 ## Writing the output to a word document
 ### Attributed from: https://python-docx.readthedocs.io/en/latest/
 doc = docx.Document()
-# header = doc.add_heading(user_name, 0) 
+# header = doc.add_heading(user_name, 0)
 header = doc.add_heading(user_name, 3)
 header_contact = doc.add_heading(f"{user_address} | {user_phone} | {user_phone}", 8)
 header.alignment = WD_ALIGN_PARAGRAPH.CENTER
