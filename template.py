@@ -12,13 +12,26 @@ print("------------------------------")
 job_url = "https://www.linkedin.com/jobs/view/1347102437/" # input("please input your URL: ")
 
 
+
+# MAKE SURE TO SET ENGLISH AS THE LANGUAGE
+# source: https://sqa.stackexchange.com/questions/9904/how-to-set-browser-locale-with-chromedriver-python#
+options = webdriver.ChromeOptions()
+#options.add_experimental_option("prefs", {"intl.accept_languages": "es"}) # THIS WORKS - GETS SPANISH
+options.add_experimental_option("prefs", {"intl.accept_languages": "en,en_US"})
+
 # download chromedriver from http://chromedriver.chromium.org/downloads
 # and replace the path with where you download it
-driver = webdriver.Chrome("/usr/local/bin/chromedriver")
+driver = webdriver.Chrome("/usr/local/bin/chromedriver", chrome_options=options)
+
+
+
+
 driver.get(job_url)
 print(driver.title)
 
 
+
+breakpoint()
 
 
 
